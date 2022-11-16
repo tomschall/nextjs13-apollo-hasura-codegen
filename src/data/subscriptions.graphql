@@ -1,0 +1,21 @@
+subscription users {
+  users {
+    id
+    firstname
+    lastname
+    street
+    nr
+    zip
+    city
+    phone
+    note
+  }
+}
+
+subscription getTom {
+  users(where: { _and: { firstname: { _eq: "tom" } } }) {
+    city
+    firstname
+    id
+  }
+}
