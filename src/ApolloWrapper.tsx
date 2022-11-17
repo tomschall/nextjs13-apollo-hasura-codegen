@@ -56,15 +56,19 @@ const ApolloWrapper: React.FC<ApolloWrapperProps> | any = ({
       };
 
       if (!accessToken && !isAuthenticated && typeof window !== 'undefined') {
-        console.log('useEffect', typeof window !== 'undefined');
-        const token = await axios.get('http://localhost:3000/auth/refresh', {
-          headers,
-          withCredentials: true,
-        });
-        if (token) {
-          console.log('token', token);
-          setIsAuthenticated(true);
-          setAccessToken(token.data);
+        console.log('useEffect ApolloWrapper component');
+        try {
+          const token = await axios.get('http://localhost:3000/auth/refresh', {
+            headers,
+            withCredentials: true,
+          });
+          if (token) {
+            console.log('token', token);
+            setIsAuthenticated(true);
+            setAccessToken(token.data);
+          }
+        } catch (error) {
+          console.error(error);
         }
       }
     };
