@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { isAuthenticatedState, accessTokenState } from './atom';
 import { useRecoilState } from 'recoil';
@@ -15,6 +15,13 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    /*
+      Query logic
+      */
+    console.log('i fire once - login');
+  }, []);
 
   const headers = {
     'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { isAuthenticatedState } from './atom';
 import Logout from './Logout';
+import { useRouter } from 'next/router';
 
 const User: React.FC = () => {
   const [isAuthenticated] = useRecoilState(isAuthenticatedState);
@@ -13,6 +14,8 @@ const User: React.FC = () => {
   const { data, loading, error } = useGetTomSubscription({
     variables: {},
   });
+
+  const router = useRouter();
 
   if (loading) {
     return <>loading yeah...</>;
@@ -37,7 +40,16 @@ const User: React.FC = () => {
           </ul>
         </>
       ) : (
-        <></>
+        <>
+          <p>Not Authenticated!</p>
+          <button
+            onClick={() => {
+              router.push('/login');
+            }}
+          >
+            Login
+          </button>
+        </>
       )}
     </>
   );

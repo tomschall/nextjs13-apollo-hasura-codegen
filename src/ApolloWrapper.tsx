@@ -44,7 +44,7 @@ const ApolloWrapper: React.FC<ApolloWrapperProps> | any = ({
   children,
 }: any) => {
   const [isAuthenticated, setIsAuthenticated] =
-    useRecoilState(isAuthenticatedState);
+    useRecoilState<boolean>(isAuthenticatedState);
 
   const [accessToken, setAccessToken] =
     useRecoilState<string>(accessTokenState);
@@ -70,7 +70,7 @@ const ApolloWrapper: React.FC<ApolloWrapperProps> | any = ({
     };
 
     checkForValidJWT();
-  }, [setIsAuthenticated, setAccessToken, accessToken]);
+  }, [isAuthenticated, setIsAuthenticated, setAccessToken, accessToken]);
 
   useEffect(() => {
     /*
@@ -86,24 +86,6 @@ const ApolloWrapper: React.FC<ApolloWrapperProps> | any = ({
     }
     return headers;
   };
-
-  // const parseTokenAndSetRoles = async (token: string) => {
-  //   const user: ParsedTokenUser = jwt_decode<JwtPayload>(token);
-
-  //   if (
-  //     user.sub === undefined ||
-  //     user['https://hasura.io/jwt/claims'] === undefined ||
-  //     user['https://hasura.io/jwt/claims']['x-hasura-allowed-roles'] ===
-  //       undefined
-  //   ) {
-  //     return;
-  //   }
-
-  //   sessionStorage.setItem(
-  //     user.sub,
-  //     user['https://hasura.io/jwt/claims']['x-hasura-allowed-roles'],
-  //   );
-  // };
 
   const authMiddleware = setContext(async (operation, { originalHeaders }) => {
     return {
