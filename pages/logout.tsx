@@ -17,7 +17,7 @@ const Logout: React.FC = () => {
     };
 
     axios
-      .get('http://localhost:3000/auth/logout', {
+      .get(process.env.NEXT_PUBLIC_LOGOUT_URL as string, {
         headers: headers,
       })
       .then((res: any) => {

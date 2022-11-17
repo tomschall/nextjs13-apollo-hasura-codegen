@@ -31,7 +31,7 @@ const Login: React.FC = () => {
     };
 
     axios
-      .post('http://localhost:3000/auth/signup', data, {
+      .post(process.env.NEXT_PUBLIC_SIGNUP_URL as string, data, {
         headers: headers,
         withCredentials: true,
       })

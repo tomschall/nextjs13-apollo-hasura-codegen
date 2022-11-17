@@ -58,10 +58,13 @@ const ApolloWrapper: React.FC<ApolloWrapperProps> | any = ({
       if (!accessToken && !isAuthenticated && typeof window !== 'undefined') {
         console.log('useEffect ApolloWrapper component');
         try {
-          const token = await axios.get('http://localhost:3000/auth/refresh', {
-            headers,
-            withCredentials: true,
-          });
+          const token = await axios.get(
+            process.env.NEXT_PUBLIC_REFRESH_TOKEN_URL as string,
+            {
+              headers,
+              withCredentials: true,
+            },
+          );
           if (token) {
             console.log('token', token);
             setIsAuthenticated(true);
@@ -101,11 +104,11 @@ const ApolloWrapper: React.FC<ApolloWrapperProps> | any = ({
   });
 
   const httpLinkOptions: HttpOptions = {
-    uri: 'http://localhost:8080/v1/graphql',
+    uri: process.env.NEXT_PUBLIC_HTTP_BACKEND_LINK,
   };
 
   const wsLinkOptions: WebSocketParams = {
-    uri: 'ws://localhost:8080/v1/graphql',
+    uri: process.env.NEXT_PUBLIC_WS_BACKEND_LINK as string,
     options: {
       reconnect: true,
       lazy: true,
